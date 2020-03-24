@@ -112,5 +112,50 @@ namespace JSONReader
 
             return _Result;
         }
+
+        private void btnVSTO_Click(object sender, EventArgs e)
+        {
+            string json = File.ReadAllText(lblFile.Text);
+            CalcandSaveVSTOJson(json);
+        }
+        
+        public GenericResult CalcandSaveVSTOJson(string json)
+        {
+            string Url = "http://localhost:23550/";
+            GenericResult _Result = null;
+
+            if (json != null)
+            {
+                string apiPath = "api/VSTO/CalcandSaveVSTOJson";
+                string serializeJSON = JsonConvert.SerializeObject(json);
+                using (var client = new HttpClient())
+                {
+                    var res = client.PostAsync(Url + apiPath, new StringContent(serializeJSON, Encoding.UTF8, "application/json"));
+                    try
+                    {
+                        HttpResponseMessage response1 = res.Result.EnsureSuccessStatusCode();
+                        if (response1.IsSuccessStatusCode)
+                        {
+                            _Result = new GenericResult()
+                            {
+                                Succeeded = true,
+                            };
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        _Result = new GenericResult()
+                        {
+                            Succeeded = false,
+                            Message = e.StackTrace
+
+                        };
+                        Console.WriteLine(e.ToString());
+                    }
+                }
+            }
+
+            return _Result;
+        }
     }
 }
