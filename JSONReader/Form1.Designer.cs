@@ -37,26 +37,28 @@
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             this.btnRun = new System.Windows.Forms.Button();
             this.btnVSTO = new System.Windows.Forms.Button();
+            this.txtStatus = new System.Windows.Forms.TextBox();
+            this.chkSaveWithoutCalc = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgView)).BeginInit();
             this.SuspendLayout();
             // 
             // dgView
             // 
             this.dgView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgView.Location = new System.Drawing.Point(10, 33);
-            this.dgView.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.dgView.Location = new System.Drawing.Point(835, 79);
+            this.dgView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgView.Name = "dgView";
             this.dgView.RowHeadersWidth = 102;
             this.dgView.RowTemplate.Height = 40;
-            this.dgView.Size = new System.Drawing.Size(525, 191);
+            this.dgView.Size = new System.Drawing.Size(592, 455);
             this.dgView.TabIndex = 0;
             // 
             // btnReadJson
             // 
-            this.btnReadJson.Location = new System.Drawing.Point(557, 84);
-            this.btnReadJson.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnReadJson.Location = new System.Drawing.Point(1485, 200);
+            this.btnReadJson.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnReadJson.Name = "btnReadJson";
-            this.btnReadJson.Size = new System.Drawing.Size(91, 36);
+            this.btnReadJson.Size = new System.Drawing.Size(243, 86);
             this.btnReadJson.TabIndex = 1;
             this.btnReadJson.Text = "Read JSON";
             this.btnReadJson.UseVisualStyleBackColor = true;
@@ -64,10 +66,10 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(557, 230);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnCancel.Location = new System.Drawing.Point(1485, 548);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(91, 36);
+            this.btnCancel.Size = new System.Drawing.Size(243, 86);
             this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -76,19 +78,19 @@
             // lblFile
             // 
             this.lblFile.AutoSize = true;
-            this.lblFile.Location = new System.Drawing.Point(12, 10);
-            this.lblFile.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
+            this.lblFile.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblFile.Location = new System.Drawing.Point(32, 24);
             this.lblFile.Name = "lblFile";
-            this.lblFile.Size = new System.Drawing.Size(134, 13);
+            this.lblFile.Size = new System.Drawing.Size(853, 85);
             this.lblFile.TabIndex = 3;
             this.lblFile.Text = "D:\\Temp\\JSON\\9946.json";
             // 
             // btnBrowse
             // 
-            this.btnBrowse.Location = new System.Drawing.Point(557, 34);
-            this.btnBrowse.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnBrowse.Location = new System.Drawing.Point(1485, 81);
+            this.btnBrowse.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnBrowse.Name = "btnBrowse";
-            this.btnBrowse.Size = new System.Drawing.Size(89, 35);
+            this.btnBrowse.Size = new System.Drawing.Size(237, 83);
             this.btnBrowse.TabIndex = 4;
             this.btnBrowse.Text = "Browse";
             this.btnBrowse.UseVisualStyleBackColor = true;
@@ -104,10 +106,10 @@
             // 
             // btnRun
             // 
-            this.btnRun.Location = new System.Drawing.Point(305, 232);
-            this.btnRun.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnRun.Location = new System.Drawing.Point(813, 553);
+            this.btnRun.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnRun.Name = "btnRun";
-            this.btnRun.Size = new System.Drawing.Size(91, 43);
+            this.btnRun.Size = new System.Drawing.Size(243, 103);
             this.btnRun.TabIndex = 5;
             this.btnRun.Text = "CalcNoteAnd SaveByNoteID";
             this.btnRun.UseVisualStyleBackColor = true;
@@ -115,19 +117,41 @@
             // 
             // btnVSTO
             // 
-            this.btnVSTO.Location = new System.Drawing.Point(418, 232);
+            this.btnVSTO.Location = new System.Drawing.Point(1115, 553);
+            this.btnVSTO.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
             this.btnVSTO.Name = "btnVSTO";
-            this.btnVSTO.Size = new System.Drawing.Size(86, 43);
+            this.btnVSTO.Size = new System.Drawing.Size(229, 103);
             this.btnVSTO.TabIndex = 6;
             this.btnVSTO.Text = "CalcandSave VSTOJson";
             this.btnVSTO.UseVisualStyleBackColor = true;
             this.btnVSTO.Click += new System.EventHandler(this.btnVSTO_Click);
             // 
+            // txtStatus
+            // 
+            this.txtStatus.Location = new System.Drawing.Point(34, 85);
+            this.txtStatus.Multiline = true;
+            this.txtStatus.Name = "txtStatus";
+            this.txtStatus.Size = new System.Drawing.Size(753, 431);
+            this.txtStatus.TabIndex = 7;
+            // 
+            // chkSaveWithoutCalc
+            // 
+            this.chkSaveWithoutCalc.AutoSize = true;
+            this.chkSaveWithoutCalc.Location = new System.Drawing.Point(67, 553);
+            this.chkSaveWithoutCalc.Name = "chkSaveWithoutCalc";
+            this.chkSaveWithoutCalc.Size = new System.Drawing.Size(272, 36);
+            this.chkSaveWithoutCalc.TabIndex = 8;
+            this.chkSaveWithoutCalc.Text = "SaveWithoutCalc";
+            this.chkSaveWithoutCalc.UseVisualStyleBackColor = true;
+            this.chkSaveWithoutCalc.CheckedChanged += new System.EventHandler(this.chkSaveWithoutCalc_CheckedChanged);
+            // 
             // frmJSONReader
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(660, 276);
+            this.ClientSize = new System.Drawing.Size(1760, 658);
+            this.Controls.Add(this.chkSaveWithoutCalc);
+            this.Controls.Add(this.txtStatus);
             this.Controls.Add(this.btnVSTO);
             this.Controls.Add(this.btnRun);
             this.Controls.Add(this.btnBrowse);
@@ -135,9 +159,10 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnReadJson);
             this.Controls.Add(this.dgView);
-            this.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "frmJSONReader";
             this.Text = "Read JSON Files";
+            this.Load += new System.EventHandler(this.frmJSONReader_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -155,6 +180,8 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog2;
         private System.Windows.Forms.Button btnRun;
         private System.Windows.Forms.Button btnVSTO;
+        private System.Windows.Forms.TextBox txtStatus;
+        private System.Windows.Forms.CheckBox chkSaveWithoutCalc;
     }
 }
 

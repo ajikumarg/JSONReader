@@ -24,13 +24,32 @@ namespace JSONReader
 
         private void btnBrowse_Click(object sender, EventArgs e)
         {
+            string strFileName=string.Empty;
             OpenFileDialog oDialog = new OpenFileDialog();
             if(oDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                string strFileName = oDialog.FileName;
+                strFileName = oDialog.FileName;
                 //MessageBox.Show(strFileName);
                 this.lblFile.Text = strFileName;
             }
+
+            ReadJSONFile(strFileName);
+            WriteText("SaveWithoutCalc: " + _notedc.SaveWithoutCalc);
+            switch (_notedc.SaveWithoutCalc)
+            {
+                case "Y":
+                    chkSaveWithoutCalc.Checked = true;
+                    break;
+
+                case "N":
+                    chkSaveWithoutCalc.Checked = false;
+                    break;
+
+                default:
+                    chkSaveWithoutCalc.Checked = false;
+                    break;
+            };
+                
         }
         private void btnReadJson_Click(object sender, EventArgs e)
         {
@@ -61,7 +80,7 @@ namespace JSONReader
         private NoteDataContract ReadJSONFile(string strFile)
         {
             //var obj = JsonConvert.DeserializeObject(strFile);
-            NoteDataContract _notedc = new NoteDataContract();
+            _notedc = new NoteDataContract();
 
             string strJSON = File.ReadAllText(strFile);
             _notedc = JsonConvert.DeserializeObject<NoteDataContract>(strJSON);
@@ -80,6 +99,9 @@ namespace JSONReader
             //string json = File.ReadAllText(@"C:\Temp\9946.json");
             if(_notedc == null)
                 _notedc = ReadJSONFile(lblFile.Text);
+
+            WriteText(_notedc.SaveWithoutCalc);
+            _notedc.SaveWithoutCalc = "N";
 
             if (_notedc != null)
             {
@@ -156,6 +178,41 @@ namespace JSONReader
             }
 
             return _Result;
+        }
+
+        private void frmJSONReader_Load(object sender, EventArgs e)
+        {
+            this.txtStatus.Text = "";
+        }
+
+        private void WriteText(string text)
+        {
+            if(this.txtStatus.Text.Length == 0)
+                txtStatus.Text += text + "\n";
+            else
+                txtStatus.Text += "\r\n" + text;
+
+        }
+
+        private void chkSaveWithoutCalc_CheckedChanged(object sender, EventArgs e)
+        {
+            if(_notedc !=null)
+            {
+                switch(this.chkSaveWithoutCalc.Checked)
+                {
+                    case true:
+                        _notedc.SaveWithoutCalc = "Y";
+                        break;
+
+                    case false:
+                        _notedc.SaveWithoutCalc = "N";
+                        break;
+
+                    default:
+                        break;
+                }
+                WriteText("SaveWithoutCalc: " + _notedc.SaveWithoutCalc);
+            }
         }
     }
 }
