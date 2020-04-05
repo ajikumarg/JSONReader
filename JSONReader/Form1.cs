@@ -34,7 +34,7 @@ namespace JSONReader
             }
 
             ReadJSONFile(strFileName);
-            WriteText("SaveWithoutCalc: " + _notedc.SaveWithoutCalc);
+            //WriteText("SaveWithoutCalc: " + _notedc.SaveWithoutCalc);
             switch (_notedc.SaveWithoutCalc)
             {
                 case "Y":
@@ -49,6 +49,9 @@ namespace JSONReader
                     chkSaveWithoutCalc.Checked = false;
                     break;
             };
+
+            //string LibSch = Program.LiborSchedule(_notedc, new DateTime(2019, 7, 8),new DateTime(2020,7,7));
+            //WriteText(LibSch);
                 
         }
         private void btnReadJson_Click(object sender, EventArgs e)
@@ -172,7 +175,7 @@ namespace JSONReader
                             Message = e.StackTrace
 
                         };
-                        Console.WriteLine(e.ToString());
+                        WriteText(e.ToString());
                     }
                 }
             }
@@ -188,9 +191,9 @@ namespace JSONReader
         private void WriteText(string text)
         {
             if(this.txtStatus.Text.Length == 0)
-                txtStatus.Text += text + "\n";
+                txtStatus.Text += System.DateTime.Now.ToString() + "- " + text;
             else
-                txtStatus.Text += "\r\n" + text;
+                txtStatus.Text += "\r\n" + System.DateTime.Now.ToString("hh:mm:ss") + "- " + text;
 
         }
 
