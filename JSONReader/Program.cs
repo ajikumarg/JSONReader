@@ -19,13 +19,10 @@ namespace JSONReader
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new frmJSONReader());
         }
-
         public static string LiborSchedule(NoteDataContract noteDC, DateTime Start, DateTime End)
         {
             string libschedule = string.Empty;
             
-
-
             foreach(LiborScheduleTab lib in noteDC.ListLiborScheduleTab)
             {
                 if (lib.Date >= Start && lib.Date <= End)
@@ -33,6 +30,18 @@ namespace JSONReader
             }
 
             return libschedule;
+        }
+
+        public static string FundingSchedule(NoteDataContract noteDC, DateTime EffDate)
+        {
+            string fundschedule = string.Empty;
+            foreach(FutureFundingScheduleTab fundDC in noteDC.ListFutureFundingScheduleTab)
+            {
+                if (fundDC.EffectiveDate == EffDate)
+                    fundschedule += "\r\n" + fundDC.Date.ToString() + ": " + fundDC.Value.ToString();
+            }
+
+            return fundschedule;
         }
     }
 }

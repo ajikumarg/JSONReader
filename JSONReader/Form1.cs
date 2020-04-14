@@ -50,8 +50,8 @@ namespace JSONReader
                     break;
             };
 
-            //string LibSch = Program.LiborSchedule(_notedc, new DateTime(2019, 7, 8),new DateTime(2020,7,7));
-            //WriteText(LibSch);
+            //string Sch = Program.FundingSchedule(_notedc, new DateTime(2019, 11, 30));
+            //WriteText(Sch);
                 
         }
         private void btnReadJson_Click(object sender, EventArgs e)
@@ -120,6 +120,7 @@ namespace JSONReader
                         if (response1.IsSuccessStatusCode)
                         {
                             // Add code
+                            WriteText("Completed Successfully!");
                         }
                     }
                     catch (System.Exception e)

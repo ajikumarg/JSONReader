@@ -81,7 +81,7 @@
             this.lblFile.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblFile.Location = new System.Drawing.Point(32, 24);
             this.lblFile.Name = "lblFile";
-            this.lblFile.Size = new System.Drawing.Size(853, 85);
+            this.lblFile.Size = new System.Drawing.Size(341, 34);
             this.lblFile.TabIndex = 3;
             this.lblFile.Text = "D:\\Temp\\JSON\\9946.json";
             // 
@@ -131,6 +131,7 @@
             this.txtStatus.Location = new System.Drawing.Point(34, 85);
             this.txtStatus.Multiline = true;
             this.txtStatus.Name = "txtStatus";
+            this.txtStatus.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtStatus.Size = new System.Drawing.Size(753, 431);
             this.txtStatus.TabIndex = 7;
             // 
