@@ -2,6 +2,8 @@
 using System.Data;
 using System.Text;
 using System.IO;
+using System.Linq;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Net.Http;
 using Newtonsoft.Json;
@@ -21,7 +23,31 @@ namespace JSONReader
             this.strLabelOrigText = lblFile.Text;
         }
 
+        #region EventHandlers
+        private void frmJSONReader_Load(object sender, EventArgs e)
+        {
+            this.txtStatus.Text = "";
+        }
+        private void chkSaveWithoutCalc_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_notedc != null)
+            {
+                switch (this.chkSaveWithoutCalc.Checked)
+                {
+                    case true:
+                        _notedc.SaveWithoutCalc = "Y";
+                        break;
 
+                    case false:
+                        _notedc.SaveWithoutCalc = "N";
+                        break;
+
+                    default:
+                        break;
+                }
+                WriteText("SaveWithoutCalc: " + _notedc.SaveWithoutCalc);
+            }
+        }
         private void btnBrowse_Click(object sender, EventArgs e)
         {
             string strFileName=string.Empty;
@@ -34,6 +60,8 @@ namespace JSONReader
             }
 
             ReadJSONFile(strFileName);
+            WriteFutureFundingSchedule();
+
             //WriteText("SaveWithoutCalc: " + _notedc.SaveWithoutCalc);
             switch (_notedc.SaveWithoutCalc)
             {
@@ -80,27 +108,24 @@ namespace JSONReader
             this.Close();
         }
 
-        private NoteDataContract ReadJSONFile(string strFile)
-        {
-            //var obj = JsonConvert.DeserializeObject(strFile);
-            _notedc = new NoteDataContract();
-
-            string strJSON = File.ReadAllText(strFile);
-            _notedc = JsonConvert.DeserializeObject<NoteDataContract>(strJSON);
- 
-            return _notedc;
-        }
-
         private void btnRun_Click(object sender, EventArgs e)
         {
             RunNoteCalcCtlrCalcAndSave();
         }
+        private void btnVSTO_Click(object sender, EventArgs e)
+        {
+            string json = File.ReadAllText(lblFile.Text);
+            CalcandSaveVSTOJson(json);
+        }
+
+        #endregion EventHandlers
+
         public GenericResult RunNoteCalcCtlrCalcAndSave()
         {
             string Url = "http://localhost:63477/";
             GenericResult _Result = null;
             //string json = File.ReadAllText(@"C:\Temp\9946.json");
-            if(_notedc == null)
+            if (_notedc == null)
                 _notedc = ReadJSONFile(lblFile.Text);
 
             WriteText(_notedc.SaveWithoutCalc);
@@ -138,11 +163,16 @@ namespace JSONReader
 
             return _Result;
         }
-
-        private void btnVSTO_Click(object sender, EventArgs e)
+        
+        private NoteDataContract ReadJSONFile(string strFile)
         {
-            string json = File.ReadAllText(lblFile.Text);
-            CalcandSaveVSTOJson(json);
+            //var obj = JsonConvert.DeserializeObject(strFile);
+            _notedc = new NoteDataContract();
+
+            string strJSON = File.ReadAllText(strFile);
+            _notedc = JsonConvert.DeserializeObject<NoteDataContract>(strJSON);
+
+            return _notedc;
         }
         
         public GenericResult CalcandSaveVSTOJson(string json)
@@ -184,9 +214,17 @@ namespace JSONReader
             return _Result;
         }
 
-        private void frmJSONReader_Load(object sender, EventArgs e)
+        private void WriteFutureFundingSchedule()
         {
-            this.txtStatus.Text = "";
+            string sffs = string.Empty;
+            List<EffectiveDateList> EffList = _notedc.EffectiveDateList.Where(x => x.Type == "FFScheduleTab").ToList();
+            
+            foreach (EffectiveDateList eff in EffList)
+            {
+                sffs = Program.FundingSchedule(_notedc, eff.EffectiveDate);
+                WriteText("\r\nEffective Date: " + eff.EffectiveDate.ToString());
+                WriteText(sffs);
+            }
         }
 
         private void WriteText(string text)
@@ -198,25 +236,6 @@ namespace JSONReader
 
         }
 
-        private void chkSaveWithoutCalc_CheckedChanged(object sender, EventArgs e)
-        {
-            if(_notedc !=null)
-            {
-                switch(this.chkSaveWithoutCalc.Checked)
-                {
-                    case true:
-                        _notedc.SaveWithoutCalc = "Y";
-                        break;
 
-                    case false:
-                        _notedc.SaveWithoutCalc = "N";
-                        break;
-
-                    default:
-                        break;
-                }
-                WriteText("SaveWithoutCalc: " + _notedc.SaveWithoutCalc);
-            }
-        }
     }
 }

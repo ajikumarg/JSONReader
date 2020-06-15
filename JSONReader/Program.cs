@@ -32,7 +32,7 @@ namespace JSONReader
             return libschedule;
         }
 
-        public static string FundingSchedule(NoteDataContract noteDC, DateTime EffDate)
+        public static string FundingSchedule(NoteDataContract noteDC, DateTime? EffDate=null)
         {
             string fundschedule = string.Empty;
             foreach(FutureFundingScheduleTab fundDC in noteDC.ListFutureFundingScheduleTab)
