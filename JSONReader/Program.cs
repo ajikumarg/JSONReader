@@ -43,5 +43,19 @@ namespace JSONReader
 
             return fundschedule;
         }
+
+
+        public static string RateSpreadSchedule(NoteDataContract noteDC, DateTime? EffDate = null)
+        {
+            string rsSchedule = EffDate.ToString();
+
+            foreach (RateSpreadSchedule rs in noteDC.RateSpreadScheduleList)
+            {
+                if (rs.EffectiveDate == EffDate)
+                    rsSchedule += "\r\n" + rs.Date.ToString() + ": " + rs.ValueTypeText+ "- " + rs.Value.ToString();
+            }
+
+            return rsSchedule;
+        }
     }
 }

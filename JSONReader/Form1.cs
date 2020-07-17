@@ -167,11 +167,19 @@ namespace JSONReader
         private NoteDataContract ReadJSONFile(string strFile)
         {
             //var obj = JsonConvert.DeserializeObject(strFile);
+            List<DateTime?> effList = new List<DateTime?>();
             _notedc = new NoteDataContract();
 
             string strJSON = File.ReadAllText(strFile);
             _notedc = JsonConvert.DeserializeObject<NoteDataContract>(strJSON);
 
+            foreach(RateSpreadSchedule rs in _notedc.RateSpreadScheduleList)
+            {
+                if (!effList.Contains(rs.EffectiveDate))
+                    effList.Add(rs.EffectiveDate);
+            }
+            foreach (DateTime? dtEff in effList)
+                Program.RateSpreadSchedule(_notedc, dtEff);
             return _notedc;
         }
         
